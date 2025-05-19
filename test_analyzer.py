@@ -13,8 +13,8 @@ from pandas import Timestamp
 from scipy.signal import argrelextrema
 import os
 
-if os.getenv("STREAMLIT_CLOUD") != "1":
-    import ollama
+# if os.getenv("STREAMLIT_CLOUD") != "1":
+#     import ollama
 
 def clean_special_characters(text):
     # Remove unwanted special characters but keep basic punctuation
