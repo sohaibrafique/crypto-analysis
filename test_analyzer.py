@@ -11,13 +11,20 @@ import numpy as np
 from datetime import date
 from pandas import Timestamp
 from scipy.signal import argrelextrema
+import os
+
+if os.getenv("STREAMLIT_CLOUD") != "1":
+    import ollama
 
 def clean_special_characters(text):
     # Remove unwanted special characters but keep basic punctuation
     return re.sub(r'[^a-zA-Z0-9\s.,:\-_$]', '', text)
 
 def fetch_data(pair="ETHUSDT", interval="4h", lookback=1000, start_date=None, end_date=None):
-    client = Client()
+    client = Client(api_key, api_secret, testnet=True)
+    client.API_URL = 'https://testnet.binance.vision/api'
+    
+    # client = Client()
     klines = client.get_klines(symbol=pair, interval=interval, limit=lookback)
     df = pd.DataFrame(klines, columns=["timestamp", "open", "high", "low", "close", "volume", "close_time", 
                                       "quote_asset_volume", "trades", "taker_buy_base", "taker_buy_quote", "ignore"])
