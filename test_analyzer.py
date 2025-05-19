@@ -12,6 +12,7 @@ from datetime import date
 from pandas import Timestamp
 from scipy.signal import argrelextrema
 import os
+import ollama
 
 # if os.getenv("STREAMLIT_CLOUD") != "1":
 #     import ollama
@@ -21,12 +22,11 @@ def clean_special_characters(text):
     return re.sub(r'[^a-zA-Z0-9\s.,:\-_$]', '', text)
 
 def fetch_data(pair="ETHUSDT", interval="4h", lookback=1000, start_date=None, end_date=None):
-    api_key = os.getenv("wRTUohteLKs9rD7gq9T8hyN1hZwTMpwHumEf2DtZFLcvZG6UJjznZPAyQzpfSLOh")
-    api_secret = os.getenv("hlGMc6ePAwKD8gNgCISSAbAbDlsym7T1uvMo9G9eQslkW7pUd2UJfQFgb3sDgmUu")
-    client = Client(api_key, api_secret, testnet=True)
-    client.API_URL = 'https://testnet.binance.vision/api'
+
+    # client = Client(api_key, api_secret, testnet=True)
+    # client.API_URL = 'https://testnet.binance.vision/api'
     
-    # client = Client()
+    client = Client()
     klines = client.get_klines(symbol=pair, interval=interval, limit=lookback)
     df = pd.DataFrame(klines, columns=["timestamp", "open", "high", "low", "close", "volume", "close_time", 
                                       "quote_asset_volume", "trades", "taker_buy_base", "taker_buy_quote", "ignore"])
