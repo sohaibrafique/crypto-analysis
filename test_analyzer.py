@@ -1,7 +1,7 @@
 import argparse
 from binance.client import Client
 import pandas as pd
-import ollama
+# import ollama
 import matplotlib.pyplot as plt
 import streamlit as st
 import datetime
